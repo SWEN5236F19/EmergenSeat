@@ -19,3 +19,11 @@ class CarSeat:
         print(self.serial_number);
         print(self.latitude)
         print(self.longitude)
+
+    def to_json(self):
+        car_seat = {
+            "serial_number": self.serial_number,
+            "latitude": self.latitude,
+            "longitude": self.longitude
+        }
+        return car_seat
