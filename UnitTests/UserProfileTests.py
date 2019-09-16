@@ -20,5 +20,6 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(car_seat.latitude, "29.760427")
         self.assertEqual(car_seat.longitude, "-95.369804")
 
+
 if __name__ == '__main__':
     unittest.main()

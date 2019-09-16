@@ -1,12 +1,13 @@
 import os
-from Model import DataHandler
+from Model.DataHandler import DataHandler
 
 
 class Controller:
 
     def __init__(self):
         self.file_name = os.getcwd() + "/userprofiles.json"
-        DataHandler.import_to_json(self.file_name)
+        data = DataHandler.import_from_json(self.file_name)
+        self.user_profiles = DataHandler.convert_json_to_profiles(data)
 
     def __del__(self):
         DataHandler.export_to_json(self.file_name)

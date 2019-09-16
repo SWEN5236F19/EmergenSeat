@@ -13,8 +13,7 @@ class UserProfile:
         assert isinstance(instance, UserProfile)
         del instance
 
-    def add_car_seat(self, serial_number):
-        car_seat = CarSeat(serial_number)
+    def add_car_seat(self, car_seat):
         self.car_seats.append(car_seat)
         return car_seat
 
