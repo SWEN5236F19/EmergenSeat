@@ -17,4 +17,13 @@ profile.print_user_profile()
 file_name = os.getcwd() + "/userprofiles.json"
 print(file_name)
 
-DataHandler.export_to_json(file_name, profiles);
+data = []
+for profile in profiles:
+    data.append(profile.to_json())
+
+DataHandler.export_to_json(file_name, data)
+
+return_data = DataHandler.import_to_json(file_name)
+
+if data["email"] == return_data["email"]:
+    print ("Emails Match")

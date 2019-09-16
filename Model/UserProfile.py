@@ -27,3 +27,10 @@ class UserProfile:
         print("Email: " + self.email)
         for car_seat in self.car_seats:
             car_seat.print_car_seat()
+
+    def to_json(self):
+        profile = {"email": self.email,
+                   "car_seats": []}
+        for car_seat in self.car_seats:
+            profile["car_seats"].append(car_seat.to_json())
+        return profile
