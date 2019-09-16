@@ -1,0 +1,100 @@
+WindowManager:
+    GreetingScreen:
+    LoginScreen:
+    SignUpScreen:
+    RegisterSeat:
+
+<GreetingScreen>
+    name: "greeting"
+
+    FloatLayout:
+        Label:
+            text: "Welcom To EmergenSeat! \n Your guardian angel"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {'center_x':.5, 'center_y':.7}
+            size_hint: 0.35, 0.15
+        Button:
+            text: "Login "
+            size_hint: 0.4, 0.12
+            pos_hint: {'x':0.1, 'center_y':.5}
+            on_release: app.root.current = 'login'
+        Button:
+            text: "Create Account "
+            size_hint: 0.4, 0.12
+            pos_hint: {'center_x':.7, 'y':0.44}
+            on_release:
+                app.root.current = 'signup'
+                root.manager.transition.direction = "right"
+
+
+<LoginScreen>
+    name: "login"
+    email: email
+    password: password
+
+    FloatLayout:
+        Label:
+            text: "Email: "
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"x":0.1, "top":0.9}
+            size_hint: 0.35, 0.15
+
+        TextInput:
+            id: email
+            multiline:False
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"x": 0.40 , "top":0.9}
+            size_hint: 0.4, 0.15
+
+        Label:
+            text: "Password: "
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"x":0.1, "top":0.7}
+            size_hint: 0.35, 0.15
+
+        TextInput:
+            id: password
+            multiline:False
+            password: True
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"x": 0.40, "top":0.7}
+            size_hint: 0.4, 0.15
+
+        Button:
+            text: "Submit "
+            size_hint: 0.4, 0.12
+            pos_hint: {'center_x':.5, 'y':0.40}
+            on_release:
+                root.manager.transition.direction = "up"
+                root.checkCreds()
+        Button:
+            text: "Back "
+            size_hint: 0.4, 0.12
+            pos_hint: {'center_x':.5, 'y':0.25}
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = 'greeting'
+
+
+<SignUpScreen>
+    name: 'signup'
+
+    FloatLayout:
+        orientation: 'vertical'
+        Label:
+            text: "First Name: "
+            size_hint: 0.25, 0.15
+            pos_hint: {"x": 0.0, "top":0.75}
+
+        TextInput:
+            id: usrFirstName
+            multiline:False
+            pos_hint: {"x": 0.20, "top":0.7}
+            size_hint: 0.50, 0.05
+
+<RegisterSeat>
+    name: 'Register'
+
+    FloatLayout:
+        Label:
+            text: "Car Registration"
