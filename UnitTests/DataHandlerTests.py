@@ -10,6 +10,7 @@ class DataHandlerTestCase(unittest.TestCase):
         profile = UserProfile("parent123@gmail.com")
         car_seat = CarSeat("123ABC")
         car_seat.set_gps_location("29.760427", "-95.369804")
+        car_seat.car.set_car("Toyota", "Highlander", "2019", "vin_number_goes_here")
         profile.add_car_seat(car_seat);
 
         data = [profile.to_json()];
