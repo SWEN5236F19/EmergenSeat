@@ -1,5 +1,6 @@
 import unittest
 
+from Model.Car import Car
 from Model.CarSeat import CarSeat
 from Model.UserProfile import UserProfile
 
@@ -19,6 +20,14 @@ class MyTestCase(unittest.TestCase):
         car_seat.set_gps_location("29.760427", "-95.369804")
         self.assertEqual(car_seat.latitude, "29.760427")
         self.assertEqual(car_seat.longitude, "-95.369804")
+
+    def test_create_car(self):
+        car = Car()
+        car.set_car("Toyota", "Highlander", "2019", "vin_number_goes_here")
+        self.assertEqual(car.year, "2019")
+        self.assertEqual(car.make, "Toyota")
+        self.assertEqual(car.model, "Highlander")
+        self.assertEqual(car.vin, "vin_number_goes_here")
 
 if __name__ == '__main__':
     unittest.main()
