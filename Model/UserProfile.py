@@ -4,6 +4,9 @@ from Model.CarSeat import CarSeat
 class UserProfile:
     def __init__(self, email):
         self.email = email
+        self.password = ""
+        self.first_name = ""
+        self.last_name = ""
         self.car_seats = []
 
     def __get__(self, instance, owner):
