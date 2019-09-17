@@ -3,13 +3,14 @@ WindowManager:
     LoginScreen:
     SignUpScreen:
     RegisterSeat:
+    MemberArea:
 
 <GreetingScreen>
     name: "greeting"
 
     FloatLayout:
         Label:
-            text: "Welcom To EmergenSeat! \n Your guardian angel"
+            text: "Welcome To EmergenSeat! \n            Your guardian angel"
             font_size: (root.width**2 + root.height**2) / 13**4
             pos_hint: {'center_x':.5, 'center_y':.7}
             size_hint: 0.35, 0.15
@@ -78,9 +79,17 @@ WindowManager:
 
 <SignUpScreen>
     name: 'signup'
+    usrFirstName: usrFirstName
+    usrLastName: usrLastName
+    usrPassword: usrPassword
+    usrEmail: usrEmail
 
     FloatLayout:
         orientation: 'vertical'
+        Label:
+            text: "Sign up"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"center_x":.5, "center_y":.8}
         Label:
             text: "First Name: "
             size_hint: 0.25, 0.15
@@ -92,9 +101,123 @@ WindowManager:
             pos_hint: {"x": 0.20, "top":0.7}
             size_hint: 0.50, 0.05
 
+        Label:
+            text: "Last Name: "
+            size_hint: 0.25, 0.15
+            pos_hint: {"x": 0.0, "top":0.65}
+
+        TextInput:
+            id: usrLastName
+            multiline:False
+            pos_hint: {"x": 0.20, "top":0.6}
+            size_hint: 0.50, 0.05
+
+        Label:
+            text: "Email: "
+            size_hint: 0.25, 0.15
+            pos_hint: {"x": 0.0, "top":0.55}
+
+        TextInput:
+            id: usrEmail
+            multiline:False
+            pos_hint: {"x": 0.20, "top":0.5}
+            size_hint: 0.50, 0.05
+
+        Label:
+            text: "Password: "
+            size_hint: 0.25, 0.15
+            pos_hint: {"x": 0.0, "top":0.45}
+
+        TextInput:
+            id: usrPassword
+            multiline:False
+            password: True
+            pos_hint: {"x": 0.20, "top":0.4}
+            size_hint: 0.50, 0.05
+
+        Button:
+            text: "Back "
+            size_hint: 0.2, 0.10
+            pos_hint: {'center_x':.60, 'y':0.20}
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = 'greeting'
+        Button:
+            text: "Submit "
+            size_hint: 0.2, 0.10
+            pos_hint: {'center_x':.30, 'y':0.20}
+            on_release:
+                root.manager.transition.direction = "left"
+                root.sendnewUser()
+
 <RegisterSeat>
-    name: 'Register'
+    name: 'register'
+    nameOfSeat: nameOfSeat
+    serialNum: serialNum
+
+    FloatLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Car Seat Registration"
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"center_x":.5, "center_y":.8}
+        Label:
+            text: "Model Seat: "
+            size_hint: 0.30, 0.15
+            pos_hint: {"x": 0.0, "top":0.75}
+
+        TextInput:
+            id: nameOfSeat
+            multiline:False
+            pos_hint: {"x": 0.25, "top":0.7}
+            size_hint: 0.50, 0.05
+
+        Label:
+            text: "Seat Serial Number: "
+            size_hint: 0.25, 0.15
+            pos_hint: {"x": 0.0, "top":0.65}
+
+        TextInput:
+            id: serialNum
+            multiline:False
+            pos_hint: {"x": 0.25, "top":0.6}
+            size_hint: 0.50, 0.05
+
+        Button:
+            text: "Back "
+            size_hint: 0.2, 0.10
+            pos_hint: {'center_x':.60, 'y':0.20}
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = 'member'
+        Button:
+            text: "Submit "
+            size_hint: 0.2, 0.10
+            pos_hint: {'center_x':.30, 'y':0.20}
+            on_release:
+                root.manager.transition.direction = "up"
+                root.sendCarSeat()
+
+<MemberArea>
+    name: 'member'
 
     FloatLayout:
         Label:
-            text: "Car Registration"
+            text: "Member Area"
+            font_size: 40
+            pos_hint:{'center_x':.5, 'y':0.45}
+
+        Button:
+            text: "Logout "
+            size_hint: 0.2, 0.10
+            pos_hint: {'center_x':.65, 'y':0.20}
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = 'greeting'
+        Button:
+            text: "Register Seat "
+            size_hint: 0.2, 0.10
+            pos_hint: {'center_x':.30, 'y':0.20}
+            on_release:
+                root.manager.transition.direction = "up"
+                app.root.current = 'register'

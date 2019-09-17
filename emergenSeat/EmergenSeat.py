@@ -32,7 +32,7 @@ class LoginScreen(Screen):
             manager.current = 'login'
         else:
             self.clear()
-            manager.current = 'greeting'
+            manager.current = 'member'
 
     def clear(self):
         self.email.text = ""
@@ -51,25 +51,51 @@ class SignUpScreen(Screen):
     def sendnewUser(self):
         if not (self.usrFirstName.text and self.usrLastName.text
                 and self.usrEmail.text and self.usrPassword.text
-                and self.email.text.count("@") == 1
-                and self.email.text.count(".") > 0):
+                and self.usrEmail.text.count("@") == 1
+                and self.usrEmail.text.count(".") > 0):
             utility.showPopup(self,"Invalid information", "Invalid Registration!")
+            self.clear()
             manager.current = 'signup'
         else:
             utility.showPopup(self,"Thank you, your account has been created", "Account Created")
             manager.current = 'login'
 
+    def clear(self):
+        self.usrFirstName.text = ""
+        self.usrLastName.text = ""
+        self.usrEmail.text = ""
+        self.usrPassword.text = ""
 
-#Memebr Register carseat
+#Member Register carseat
 class RegisterSeat(Screen):
     """
         TODO: send validated data to DB
+        carMake = ObjectProperty(None)
+        carModel = ObjectProperty(None)
+        carMYear = ObjectProperty(None)
+        carVin = ObjectProperty(None)
+        longitude = ObjectProperty(None)
+        latitude = ObjectProperty(None)
     """
-    carMake = ObjectProperty(None)
-    carModel = ObjectProperty(None)
-    carMYear = ObjectProperty(None)
-    carVin = ObjectProperty(None)
+    nameOfSeat = ObjectProperty(None)
+    serialNum = ObjectProperty(None)
 
+    def sendCarSeat(self):
+        if not (self.serialNum.text and self.nameOfSeat.text):
+            utility.showPopup(self,"Please fill all fields!", "Invalid Car Seat")
+            self.clear()
+            manager.current = 'register'
+        else:
+            utility.showPopup(self,"Thank you, new car seat added!", "Car Seat Registration")
+            manager.current = 'member'
+
+    def clear(self):
+        self.serialNum.text = ""
+        self.nameOfSeat.text = ""
+
+
+class MemberArea(Screen):
+    pass
 
 class utility:
     @staticmethod
@@ -88,7 +114,8 @@ fl = Builder.load_file("emergenseat.kv")
 #ScreenManager
 manager = WindowManager()
 app_screens = [GreetingScreen(name='greeting'), LoginScreen(name='login'),
-           SignUpScreen(name='signup'), RegisterSeat(name='register')]
+           SignUpScreen(name='signup'), RegisterSeat(name='register'),
+           MemberArea(name='member')]
 for apps in app_screens:
     manager.add_widget(apps)
 
