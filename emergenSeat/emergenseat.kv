@@ -83,6 +83,7 @@ WindowManager:
     usrLastName: usrLastName
     usrPassword: usrPassword
     usrEmail: usrEmail
+    usrCarSeat: usrCarSeat
 
     FloatLayout:
         orientation: 'vertical'
@@ -135,17 +136,28 @@ WindowManager:
             pos_hint: {"x": 0.20, "top":0.4}
             size_hint: 0.50, 0.05
 
+        Label:
+            text: "Car Seat: "
+            size_hint: 0.25, 0.15
+            pos_hint: {"x": 0.0, "top":0.35}
+
+        TextInput:
+            id: usrCarSeat
+            multiline:False
+            pos_hint: {"x": 0.20, "top":0.30}
+            size_hint: 0.50, 0.05
+
         Button:
             text: "Back "
             size_hint: 0.2, 0.10
-            pos_hint: {'center_x':.60, 'y':0.20}
+            pos_hint: {'center_x':.60, 'y':0.10}
             on_release:
                 root.manager.transition.direction = "left"
                 app.root.current = 'greeting'
         Button:
             text: "Submit "
             size_hint: 0.2, 0.10
-            pos_hint: {'center_x':.30, 'y':0.20}
+            pos_hint: {'center_x':.30, 'y':0.10}
             on_release:
                 root.manager.transition.direction = "left"
                 root.sendnewUser()
@@ -200,12 +212,39 @@ WindowManager:
 
 <MemberArea>
     name: 'member'
+    mbrFName: mbrFName
+    mbrLName: mbrLName
+    mbrEmail: mbrEmail
+    mbrSeat: mbrSeat
 
     FloatLayout:
         Label:
             text: "Member Area"
             font_size: 40
             pos_hint:{'center_x':.5, 'y':0.45}
+
+        Label:
+            id: mbrFName
+            text: "First Name: "
+            size_hint: 0.24, 0.15
+            pos_hint: {"x": 0.15, "top":0.90}
+        Label:
+            id: mbrLName
+            text: "Last Name: "
+            size_hint: 0.25, 0.15
+            pos_hint: {"x": 0.15, "top":0.85}
+        Label:
+            id: mbrEmail
+            text: "Account Email: "
+            size_hint: 0.24, 0.15
+            pos_hint: {"x": 0.22, "top":0.80}
+        Label:
+            id: mbrSeat
+            text: "Car Seats: "
+            size_hint: 0.25, 0.15
+            font_size: 20
+            pos_hint: {'center_x':.5, "top":0.75}
+
 
         Button:
             text: "Logout "

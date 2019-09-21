@@ -9,7 +9,8 @@ class DataHandler(object):
     @staticmethod
     def export_to_json(file_name, user_profiles):
         with open(file_name, 'w') as outfile:
-            json.dump(user_profiles, outfile)
+            json.dump(user_profiles, outfile, indent=2)
+            outfile.close()
 
     @staticmethod
     def import_from_json(file_name):

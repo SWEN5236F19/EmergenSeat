@@ -26,12 +26,13 @@ class CarSeat:
         self.car.vin = vin
 
     def print_car_seat(self):
-        print(self.serial_number);
+        print(self.serial_number)
         print(self.latitude)
         print(self.longitude)
 
     def to_json(self):
-        car_seat = {
+        car_seat = \
+        {
             "serial_number": self.serial_number,
             "latitude": self.latitude,
             "longitude": self.longitude,

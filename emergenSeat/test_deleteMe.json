@@ -1,0 +1,12 @@
+{
+  "Last Name": "Buzz", 
+  "First Name": "Fizz", 
+  "password": "fizzybuzzy", 
+  "email": "fizzBuzz@fb.com", 
+  "car_seats":
+      [
+        "f-1-z-z-B-0-z-z",
+        "df-asdf-dsfds-f",
+        "l-a-s-t-o-n-e"
+      ]
+}
