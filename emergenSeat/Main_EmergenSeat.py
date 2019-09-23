@@ -126,13 +126,16 @@ class MemberArea(Screen):
     mbrSeat = ObjectProperty(None)
 
     def on_enter(self, *args):
-        self.mbrFName.text = "Full name:   " + controller.active_user.first_name
-        self.mbrLName.text = "Last Name:   " + controller.active_user.last_name
-        self.mbrEmail.text = "Account Email:   " + controller.active_user.email
+        # check if there is an active user before running
+        if controller.active_user is not None:
+            self.mbrFName.text = "Full name:   " + controller.active_user.first_name
+            self.mbrLName.text = "Last Name:   " + controller.active_user.last_name
+            self.mbrEmail.text = "Account Email:   " + controller.active_user.email
 
-        self.seatList(controller.active_user.car_seats)  # this does not print all car seats in list :-(
-        self.status_check()
-        Clock.schedule_interval(self.status_check, 10)
+        if controller.active_user is not None and controller.active_user.car_seats is not None:
+            self.seatList(controller.active_user.car_seats)  # this does not print all car seats in list :-(
+            self.status_check()
+            Clock.schedule_interval(self.status_check, 10)
 
     def status_check(self, *args):
         self.generate_alarm(self.seat_weight(self.car_seat_list), self.seat_temp(self.car_seat_list))
