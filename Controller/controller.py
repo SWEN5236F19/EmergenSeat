@@ -8,13 +8,13 @@ from Model.UserProfile import UserProfile
 class Controller:
 
     def __init__(self):
-        self.file_name = os.getcwd() + "/test_deleteMe.json"
+        self.file_name = os.getcwd() + "/resources/userprofiles.json"
         data = DataHandler.import_from_json(self.file_name)
         self.user_profiles = DataHandler.convert_json_to_profiles(data)
         self.active_user = None
 
-    def login(self, username, password):
-        potential_user = next((x for x in self.user_profiles if x.username == username), None)
+    def login(self, email, password):
+        potential_user = next((x for x in self.user_profiles if x.email == email), None)
         if potential_user is not None:
             if hash(password) == potential_user.password:
                 self.active_user = potential_user
@@ -39,5 +39,8 @@ class Controller:
             self.active_user.car_seats.remove(car_seat)
 
     def __del__(self):
-        DataHandler.export_to_json(self.file_name)
+        data = []
+        for profile in self.user_profiles:
+            data.append(profile.to_json())
+        DataHandler.export_to_json(self.file_name, data)
 

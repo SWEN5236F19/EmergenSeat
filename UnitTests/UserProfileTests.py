@@ -7,8 +7,11 @@ from Model.UserProfile import UserProfile
 
 class MyTestCase(unittest.TestCase):
     def test_create_profile(self):
-        profile = UserProfile("parent123@gmail.com")
+        profile = UserProfile("parent123@gmail.com", "parent", "last", "password")
         self.assertEqual(profile.email, "parent123@gmail.com")
+        self.assertEqual(profile.first_name, "parent")
+        self.assertEqual(profile.last_name, "last")
+        self.assertEqual(profile.password, hash("password"))
         self.assertEqual(profile.car_seats.__len__(), 0)
 
     def test_create_car_seat(self):

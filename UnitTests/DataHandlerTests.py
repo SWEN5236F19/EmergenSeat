@@ -7,7 +7,7 @@ from Model.UserProfile import UserProfile
 
 class DataHandlerTestCase(unittest.TestCase):
     def test_json_export(self):
-        profile = UserProfile("parent123@gmail.com")
+        profile = UserProfile("parent123@gmail.com", "parent", "123", "password")
         car_seat = CarSeat("123ABC")
         car_seat.set_gps_location("29.760427", "-95.369804")
         car_seat.car.set_car("Toyota", "Highlander", "2019", "vin_number_goes_here")
@@ -18,7 +18,7 @@ class DataHandlerTestCase(unittest.TestCase):
 
     def test_json_import(self):
         data = DataHandler.import_from_json(os.getcwd() + "/resources/userprofiles.json")
-        self.assertEqual(data["email"], "parent123@gmail.com")
+        self.assertEqual(data[0]["email"], "parent123@gmail.com")
 
     def test_convert_json_to_profiles(self):
         data = DataHandler.import_from_json(os.getcwd() + "/resources/userprofiles.json")

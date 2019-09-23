@@ -9,13 +9,7 @@ from kivy.uix.popup import Popup
 import random
 
 # ADDED: classes below
-from Model.UserProfile import UserProfile
-from Model.DataHandler import DataHandler
 from Controller.controller import Controller
-
-
-# ADDED: everything above
-
 
 # Greeting
 class GreetingScreen(Screen):
@@ -71,14 +65,7 @@ class SignUpScreen(Screen):
             manager.current = 'signup'
         else:
             # ADDED: below, new user to DB (JSON)
-            # may need add_usr_to_db()
-            usr = UserProfile(self.usrEmail.text)
-            usr.first_name = self.usrFirstName.text
-            usr.last_name = self.usrLastName.text
-            usr.password = self.usrPassword.text
-            usr.add_car_seat(self.usrCarSeat.text)
-
-            DataHandler.export_to_json("test_deleteMe.json", usr.to_json())
+            manager.controller.register(self.usrEmail, self.usrFirstName, self.usrLastName, self.usrPassword)
             # ADDED: everything above
 
             Utility.showPopup(self, "Thank you, your account has been created", "Account Created")
@@ -138,18 +125,12 @@ class MemberArea(Screen):
     mbrEmail = ObjectProperty(None)
     mbrSeat = ObjectProperty(None)
 
-    # ADDED: below
-    userData = DataHandler.import_from_json("test_deleteMe.json")  # hard coded file name
-    car_seat_list = userData["car_seats"]
-
-    # ADDED: above
-
     def on_enter(self, *args):
-        self.mbrFName.text = "Full name:   " + self.userData["First Name"]
-        self.mbrLName.text = "Last Name:   " + self.userData["Last Name"]
-        self.mbrEmail.text = "Account Email:   " + self.userData["email"]
-        # ADDED: below
-        self.seatList(self.car_seat_list)  # this does not print all car seats in list :-(
+        self.mbrFName.text = "Full name:   " + controller.active_user.first_name
+        self.mbrLName.text = "Last Name:   " + controller.active_user.last_name
+        self.mbrEmail.text = "Account Email:   " + controller.active_user.email
+
+        self.seatList(controller.active_user.car_seats)  # this does not print all car seats in list :-(
         self.status_check()
         Clock.schedule_interval(self.status_check, 10)
 
@@ -201,7 +182,7 @@ class MemberArea(Screen):
             Utility.showAlarmPopup(self, warning_msg, "EmergenSeat Alarm")
 
 
-class Utility:
+class Utility(object):
     @staticmethod
     def showPopup(self, msg, tlt):
         pop = Popup(title=tlt,
@@ -222,12 +203,12 @@ class Utility:
 class WindowManager(ScreenManager):
     pass
 
-
 # loads the kv lang file
 fl = Builder.load_file("emergenseat.kv")
 
 # ScreenManagers
 manager = WindowManager()
+controller = Controller()
 app_screens = [GreetingScreen(name='greeting'), LoginScreen(name='login'),
                SignUpScreen(name='signup'), RegisterSeat(name='register'),
                MemberArea(name='member')]

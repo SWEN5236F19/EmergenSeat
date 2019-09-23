@@ -2,13 +2,6 @@ from Model.CarSeat import CarSeat
 
 
 class UserProfile:
-    def __init__(self, email):
-        self.email = email
-        self.password = ""
-        self.first_name = ""
-        self.last_name = ""
-        self.car_seats = []
-
     def __init__(self, email, first_name, last_name, password):
         self.email = email
         self.password = hash(password)
@@ -39,6 +32,9 @@ class UserProfile:
 
     def to_json(self):
         profile = {"email": self.email,
+                   "first_name": self.first_name,
+                   "last_name": self.last_name,
+                   "password": self.password,
                    "car_seats": []}
         for car_seat in self.car_seats:
             profile["car_seats"].append(car_seat.to_json())

@@ -1,1 +1,28 @@
-[{"car_seats": [{"latitude": "29.760427", "serial_number": "123ABC", "longitude": "-95.369804", "car": {"make": "Toyota", "VIN": "vin_number_goes_here", "model": "Highlander", "year": "2019"}}], "email": "parent123@gmail.com"}]
+[
+  {
+    "car_seats": [
+      {
+        "latitude": "29.760427", 
+        "serial_number": "123ABC", 
+        "longitude": "-95.369804", 
+        "car": {
+          "make": "", 
+          "VIN": "", 
+          "model": "", 
+          "year": ""
+        }
+      }
+    ], 
+    "password": -7207291063912423845, 
+    "first_name": "parent", 
+    "last_name": "123", 
+    "email": "parent123@gmail.com"
+  }, 
+  {
+    "car_seats": [], 
+    "password": 6353368565173881125, 
+    "first_name": "john", 
+    "last_name": "doe", 
+    "email": "test@abc.com"
+  }
+]
