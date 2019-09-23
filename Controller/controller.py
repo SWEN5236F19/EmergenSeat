@@ -38,10 +38,6 @@ class Controller:
         if car_seat is not None:
             self.active_user.car_seats.remove(car_seat)
 
-
-'''
-
     def __del__(self):
         DataHandler.export_to_json(self.file_name)
-        
-'''
+
