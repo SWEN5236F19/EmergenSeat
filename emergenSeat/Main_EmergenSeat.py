@@ -2,15 +2,18 @@ import kivy
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.label import Label
-from kivy.uix.recycleview import RecycleView
-from kivy.uix.dropdown import DropDown
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
+from kivy.clock import Clock
 from kivy.uix.popup import Popup
+import random
 
 # ADDED: classes below
 from Model.UserProfile import UserProfile
 from Model.DataHandler import DataHandler
+from Controller.controller import Controller
+
+
 # ADDED: everything above
 
 
@@ -23,6 +26,7 @@ class GreetingScreen(Screen):
 class LoginScreen(Screen):
     email = ObjectProperty(None)
     password = ObjectProperty(None)
+    #usrCon = Controller()
 
     def checkCreds(self):
         """
@@ -38,6 +42,8 @@ class LoginScreen(Screen):
             Utility.showPopup(self, "Invalid Username of Password!", "Invalid Login")
             manager.current = 'login'
         else:
+            # call login()
+            # self.usrCon.login(self.email.text, self.password.text))
             self.clear()
             manager.current = 'member'
 
@@ -134,43 +140,65 @@ class MemberArea(Screen):
 
     # ADDED: below
     userData = DataHandler.import_from_json("test_deleteMe.json")  # hard coded file name
+    car_seat_list = userData["car_seats"]
+
     # ADDED: above
 
     def on_enter(self, *args):
-        count = 0
-        self.mbrFName.text = "Full name:   "+self.userData["First Name"]
+        self.mbrFName.text = "Full name:   " + self.userData["First Name"]
         self.mbrLName.text = "Last Name:   " + self.userData["Last Name"]
         self.mbrEmail.text = "Account Email:   " + self.userData["email"]
-
         # ADDED: below
-        # this does not print all car seats in list :-(
-        for seat in self.userData["car_seats"]:
+        self.seatList(self.car_seat_list)  # this does not print all car seats in list :-(
+        self.status_check()
+        Clock.schedule_interval(self.status_check, 10)
+
+    def status_check(self, *args):
+        self.generate_alarm(self.seat_weight(self.car_seat_list), self.seat_temp(self.car_seat_list))
+
+    def seatList(self, data):
+        # seat_list = self.userData["car_seats"]
+        # hello = [({"text": result[0]}) for result in seat_list]
+        count = 0
+        for seat in data:
             count += 1
             self.mbrSeat.text = "\nCar Seats: \n" + ("{}. {}".format(count, seat))
 
-
-        # ADDED: temperature and weight
+    def seat_weight(self, car_seat):
         """
-            TODO: add get_weight(weight, car_seat),
-                  add get_temp(tmp, car_seat), 
-                  add generate_alarm()
-                  
-             get_weight(weight, car_seat) will take a weight and car_seat serial
-                if weight is 0, then no alarms
-                if weight > 0 
-                    call get temp()
-            
-            get_temp(temp, car_seat) will monitor the temperature
-                if temp == normal 
-                    no alarms
-                if temp > normal | temp < normal
-                    call generate_alarm()
-                    
-            generate_alarm() will pull in will temp and weight
-                alarm is sound and lights 
-                for now its just a text output maybe with colors flashing.                  
+            weight will be set my a sensor in the seat.
+            For now, randomly generated.
         """
+        rn_weight = 0
+        for cs in self.userData["car_seats"]:
+            # random generated weight between 4lbs and 20lbs
+            rn_weight = random.randrange(4, 20 + 1)
+            print("Weight Sensor: {}".format(rn_weight))
+        return rn_weight
 
+    def seat_temp(self, car_seat):
+        """
+            temperature will be set my a sensor in the seat.
+            For now, its randomly generated.
+        """
+        rn_temp = 0.0
+        for cs in self.userData["car_seats"]:
+            # random generated weight between 4lbs and 20lbs
+            rn_temp = round(random.uniform(50.0, 101.9), 2)
+            print("Car Temperature: {}".format(rn_temp))
+        return rn_temp
+
+    def generate_alarm(self, weight, temp):
+        """
+            this will check if weight >= 4lbs and if
+            temp >= 80.0 degrees. If conditions are met,
+            for now, the user will see a popup stating temp
+            and weight.
+        """
+        warning_msg = ("         [!] Baby was left in the car!\n\n      The temperature is now {}\n"
+                       "\nPLEASE RETURN TO YOUR VEHICLE".format(temp))
+        if (weight >= 4) and (temp >= 80.0):
+            Utility.showAlarmPopup(self, warning_msg, "EmergenSeat Alarm")
 
 
 class Utility:
@@ -179,6 +207,15 @@ class Utility:
         pop = Popup(title=tlt,
                     content=Label(text=msg),
                     size_hint=(None, None), size=(400, 400))
+        pop.open()
+
+    @staticmethod
+    def showAlarmPopup(self, msg, tlt):
+        pop = Popup(title=tlt,
+                    content=Label(text=msg),
+                    size_hint=(None, None), size=(400, 400),
+                    font_size="100sp",
+                    background="warning.jpeg")
         pop.open()
 
 
@@ -199,7 +236,7 @@ for apps in app_screens:
     manager.add_widget(apps)
 
 # sets the first page of app
-manager.current = "greeting"
+manager.current = "member"
 
 
 class EmergenSeatApp(App):

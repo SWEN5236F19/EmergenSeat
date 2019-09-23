@@ -8,7 +8,7 @@ from Model.UserProfile import UserProfile
 class Controller:
 
     def __init__(self):
-        self.file_name = os.getcwd() + "/userprofiles.json"
+        self.file_name = os.getcwd() + "/test_deleteMe.json"
         data = DataHandler.import_from_json(self.file_name)
         self.user_profiles = DataHandler.convert_json_to_profiles(data)
         self.active_user = None
@@ -39,6 +39,9 @@ class Controller:
             self.active_user.car_seats.remove(car_seat)
 
 
+'''
 
     def __del__(self):
         DataHandler.export_to_json(self.file_name)
+        
+'''

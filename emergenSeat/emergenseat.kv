@@ -5,8 +5,11 @@ WindowManager:
     RegisterSeat:
     MemberArea:
 
+
 <GreetingScreen>
     name: "greeting"
+    Image:
+        source: "kivyrelax.jpeg"
 
     FloatLayout:
         Label:
@@ -32,7 +35,8 @@ WindowManager:
     name: "login"
     email: email
     password: password
-
+    Image:
+        source: "kivyrelax.jpeg"
     FloatLayout:
         Label:
             text: "Email: "
@@ -84,6 +88,8 @@ WindowManager:
     usrPassword: usrPassword
     usrEmail: usrEmail
     usrCarSeat: usrCarSeat
+    Image:
+        source: "kivyrelax.jpeg"
 
     FloatLayout:
         orientation: 'vertical'
@@ -166,6 +172,8 @@ WindowManager:
     name: 'register'
     nameOfSeat: nameOfSeat
     serialNum: serialNum
+    Image:
+        source: "kivyrelax.jpeg"
 
     FloatLayout:
         orientation: 'vertical'
@@ -216,12 +224,14 @@ WindowManager:
     mbrLName: mbrLName
     mbrEmail: mbrEmail
     mbrSeat: mbrSeat
+    Image:
+        source: "kivyrelax.jpeg"
 
     FloatLayout:
         Label:
             text: "Member Area"
             font_size: 40
-            pos_hint:{'center_x':.5, 'y':0.45}
+            pos_hint:{'center_x':.5, 'y':0.40}
 
         Label:
             id: mbrFName
@@ -242,7 +252,7 @@ WindowManager:
             id: mbrSeat
             text: "Car Seats: "
             size_hint: 0.25, 0.15
-            font_size: 20
+            font_size: 25
             pos_hint: {'center_x':.5, "top":0.75}
 
 
