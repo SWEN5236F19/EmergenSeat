@@ -16,7 +16,9 @@ class MyTestCase(unittest.TestCase):
 
     def test_create_car_seat(self):
         car_seat = CarSeat("123ABC")
+        car_seat.model = "Graco - Extend to Fit"
         self.assertEqual(car_seat.serial_number, "123ABC")
+        self.assertEqual(car_seat.model, "Graco - Extend to Fit")
 
     def test_gps_location(self):
         car_seat = CarSeat("123ABC")
@@ -31,6 +33,20 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(car.make, "Toyota")
         self.assertEqual(car.model, "Highlander")
         self.assertEqual(car.vin, "vin_number_goes_here")
+
+    def test_update_weight(self):
+        car_seat = CarSeat("123ABC")
+        car_seat.set_gps_location("29.760427", "-95.369804")
+        car_seat.set_weight(6.5, "lbs")
+        self.assertEqual(car_seat.weight, 6.5)
+        self.assertEqual(car_seat.weight_unit, "lbs")
+
+    def test_update_temp(self):
+        car_seat = CarSeat("123ABC")
+        car_seat.set_gps_location("29.760427", "-95.369804")
+        car_seat.set_temperature(72.1, "Fahrenheit")
+        self.assertEqual(car_seat.temperature, 72.1)
+        self.assertEqual(car_seat.temperature_unit, "Fahrenheit")
 
 if __name__ == '__main__':
     unittest.main()

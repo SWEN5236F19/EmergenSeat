@@ -9,11 +9,14 @@ class DataHandlerTestCase(unittest.TestCase):
     def test_json_export(self):
         profile = UserProfile("parent123@gmail.com", "parent", "123", "password")
         car_seat = CarSeat("123ABC")
+        car_seat.model = "Graco - Extend to Fit"
         car_seat.set_gps_location("29.760427", "-95.369804")
+        car_seat.set_weight(6.5, "lbs")
+        car_seat.set_temperature(72.1, "Fahrenheit")
         car_seat.car.set_car("Toyota", "Highlander", "2019", "vin_number_goes_here")
-        profile.add_car_seat(car_seat);
+        profile.add_car_seat(car_seat)
 
-        data = [profile.to_json()];
+        data = [profile.to_json()]
         DataHandler.export_to_json(os.getcwd() + "/resources/userprofiles.json", data)
 
     def test_json_import(self):

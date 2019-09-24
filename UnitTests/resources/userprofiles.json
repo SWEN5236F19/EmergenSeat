@@ -2,27 +2,25 @@
   {
     "car_seats": [
       {
+        "weight_unit": "lbs", 
+        "weight": 6.5, 
+        "car": {
+          "make": "Toyota", 
+          "VIN": "vin_number_goes_here", 
+          "model": "Highlander", 
+          "year": "2019"
+        }, 
         "latitude": "29.760427", 
         "serial_number": "123ABC", 
+        "model": "Graco - Extend to Fit", 
+        "temperature_unit": "Fahrenheit", 
         "longitude": "-95.369804", 
-        "car": {
-          "make": "", 
-          "VIN": "", 
-          "model": "", 
-          "year": ""
-        }
+        "temperature": 72.1
       }
     ], 
     "password": -7207291063912423845, 
     "first_name": "parent", 
     "last_name": "123", 
     "email": "parent123@gmail.com"
-  }, 
-  {
-    "car_seats": [], 
-    "password": 6353368565173881125, 
-    "first_name": "john", 
-    "last_name": "doe", 
-    "email": "test@abc.com"
   }
 ]
