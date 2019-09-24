@@ -15,13 +15,12 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(profile.car_seats.__len__(), 0)
 
     def test_create_car_seat(self):
-        car_seat = CarSeat("123ABC")
-        car_seat.model = "Graco - Extend to Fit"
+        car_seat = CarSeat("123ABC", "Graco - Extend to Fit")
         self.assertEqual(car_seat.serial_number, "123ABC")
         self.assertEqual(car_seat.model, "Graco - Extend to Fit")
 
     def test_gps_location(self):
-        car_seat = CarSeat("123ABC")
+        car_seat = CarSeat("123ABC", "Graco - Extend to Fit")
         car_seat.set_gps_location("29.760427", "-95.369804")
         self.assertEqual(car_seat.latitude, "29.760427")
         self.assertEqual(car_seat.longitude, "-95.369804")
@@ -35,14 +34,14 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(car.vin, "vin_number_goes_here")
 
     def test_update_weight(self):
-        car_seat = CarSeat("123ABC")
+        car_seat = CarSeat("123ABC", "Graco - Extend to Fit")
         car_seat.set_gps_location("29.760427", "-95.369804")
         car_seat.set_weight(6.5, "lbs")
         self.assertEqual(car_seat.weight, 6.5)
         self.assertEqual(car_seat.weight_unit, "lbs")
 
     def test_update_temp(self):
-        car_seat = CarSeat("123ABC")
+        car_seat = CarSeat("123ABC", "Graco - Extend to Fit")
         car_seat.set_gps_location("29.760427", "-95.369804")
         car_seat.set_temperature(72.1, "Fahrenheit")
         self.assertEqual(car_seat.temperature, 72.1)

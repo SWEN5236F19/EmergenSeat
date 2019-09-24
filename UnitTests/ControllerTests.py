@@ -28,5 +28,19 @@ class ControllerTestCase(unittest.TestCase):
         self.assertIsNotNone(controller.active_user.car_seats)
         self.assertEqual(controller.active_user.car_seats[0].serial_number, "123ABC")
 
+    def test_add_car_seat(self):
+        controller = Controller()
+        controller.login("parent123@gmail.com", "password")
+        controller.add_car_seat("CD80D789SD8090S", "Graco - Extend to Fit")
+        self.assertEqual(controller.active_user.car_seats[1].serial_number, "CD80D789SD8090S")
+        self.assertEqual(controller.active_user.car_seats[1].model, "Graco - Extend to Fit")
+
+    def test_delete_car_seat(self):
+        controller = Controller()
+        controller.login("parent123@gmail.com", "password")
+        controller.delete_car_seat("CD80D789SD8090S")
+        self.assertEqual(len(controller.active_user.car_seats), 1)
+
+
 if __name__ == '__main__':
     unittest.main()

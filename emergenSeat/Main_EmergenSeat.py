@@ -37,9 +37,13 @@ class LoginScreen(Screen):
             manager.current = 'login'
         else:
             # call login()
-            # self.usrCon.login(self.email.text, self.password.text))
-            self.clear()
-            manager.current = 'member'
+            logged_in = controller.login(self.email.text, self.password.text)
+            if logged_in == 1:
+                manager.current = 'member'
+            else:
+                Utility.showPopup(self, "Invalid Username of Password!", "Invalid Login")
+                manager.current = 'login'
+            # self.clear()
 
     def clear(self):
         self.email.text = ""
@@ -100,7 +104,6 @@ class RegisterSeat(Screen):
             self.clear()
             manager.current = 'register'
         else:
-            # ADDED: send new car seat to DB
             '''
                 TODO: get new car seat data, 
                       pull in user.email.car_seat from DB
@@ -108,7 +111,7 @@ class RegisterSeat(Screen):
                       
                 (!) A car seat will be added to a user profile by user email                      
             '''
-            # ADDED: above new car seat to DB
+            controller.add_car_seat(self.serialNum.text, self.nameOfSeat.text)
 
             Utility.showPopup(self, "Thank you, new car seat added!", "Car Seat Registration")
             self.clear()
@@ -127,26 +130,27 @@ class MemberArea(Screen):
 
     def on_enter(self, *args):
         # check if there is an active user before running
+
         if controller.active_user is not None:
-            self.mbrFName.text = "Full name:   " + controller.active_user.first_name
+            self.mbrFName.text = "First name:   " + controller.active_user.first_name
             self.mbrLName.text = "Last Name:   " + controller.active_user.last_name
             self.mbrEmail.text = "Account Email:   " + controller.active_user.email
 
         if controller.active_user is not None and controller.active_user.car_seats is not None:
-            self.seatList(controller.active_user.car_seats)  # this does not print all car seats in list :-(
+            self.seat_list(controller.active_user.car_seats)  # this does not print all car seats in list :-(
             self.status_check()
             Clock.schedule_interval(self.status_check, 10)
 
     def status_check(self, *args):
-        self.generate_alarm(self.seat_weight(self.car_seat_list), self.seat_temp(self.car_seat_list))
+        self.generate_alarm(self.seat_weight(controller.active_user.car_seats), self.seat_temp(controller.active_user.car_seats))
+        pass
 
-    def seatList(self, data):
-        # seat_list = self.userData["car_seats"]
+    def seat_list(self, data):
         # hello = [({"text": result[0]}) for result in seat_list]
         count = 0
         for seat in data:
             count += 1
-            self.mbrSeat.text = "\nCar Seats: \n" + ("{}. {}".format(count, seat))
+            self.mbrSeat.text = "\nCar Seats: \n" + ("{}. {}".format(count, seat.serial_number))
 
     def seat_weight(self, car_seat):
         """
@@ -154,10 +158,11 @@ class MemberArea(Screen):
             For now, randomly generated.
         """
         rn_weight = 0
-        for cs in self.userData["car_seats"]:
-            # random generated weight between 4lbs and 20lbs
+        for cs in car_seat:
+            weight = cs.weight
+            unit = cs.weight_unit
             rn_weight = random.randrange(4, 20 + 1)
-            print("Weight Sensor: {}".format(rn_weight))
+            print("Weight Sensor: {}".format(rn_weight).format(unit))
         return rn_weight
 
     def seat_temp(self, car_seat):
@@ -166,10 +171,11 @@ class MemberArea(Screen):
             For now, its randomly generated.
         """
         rn_temp = 0.0
-        for cs in self.userData["car_seats"]:
-            # random generated weight between 4lbs and 20lbs
+        for cs in car_seat:
+            temp = cs.temperature
+            unit = cs.temperature_unit
             rn_temp = round(random.uniform(50.0, 101.9), 2)
-            print("Car Temperature: {}".format(rn_temp))
+            print("Car Temperature: {}".format(rn_temp).format(unit))
         return rn_temp
 
     def generate_alarm(self, weight, temp):
@@ -220,7 +226,7 @@ for apps in app_screens:
     manager.add_widget(apps)
 
 # sets the first page of app
-manager.current = "member"
+manager.current = "greeting"
 
 
 class EmergenSeatApp(App):

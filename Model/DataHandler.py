@@ -24,8 +24,10 @@ class DataHandler(object):
         for obj in data:
             profile = UserProfile(obj["email"], obj["first_name"], obj["last_name"], obj["password"])
             for seat in obj["car_seats"]:
-                car_seat = CarSeat(seat["serial_number"])
+                car_seat = CarSeat(seat["serial_number"], seat["model"])
                 car_seat.set_gps_location(seat["latitude"], seat["longitude"])
+                car_seat.set_weight(seat["weight"], seat["weight_unit"])
+                car_seat.set_temperature(seat["temperature"], seat["temperature_unit"])
                 profile.add_car_seat(car_seat)
             profiles.append(profile)
         return profiles

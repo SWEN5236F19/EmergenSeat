@@ -3,9 +3,9 @@ from Model.Car import Car
 
 class CarSeat:
 
-    def __init__(self, serial_number):
+    def __init__(self, serial_number, model):
         self.serial_number = serial_number;
-        self.model = ""
+        self.model = model
         self.latitude = ""
         self.longitude = ""
         self.weight = 0.0

@@ -29,8 +29,8 @@ class Controller:
     def get_car_seats(self):
         return self.active_user.car_seats
 
-    def add_car_seat(self, serial_number):
-        car_seat = CarSeat(serial_number)
+    def add_car_seat(self, serial_number, model):
+        car_seat = CarSeat(serial_number, model)
         self.active_user.add_car_seat(car_seat)
 
     def delete_car_seat(self, serial_number):
