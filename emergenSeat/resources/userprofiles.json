@@ -2,15 +2,20 @@
   {
     "car_seats": [
       {
-        "latitude": "29.760427", 
-        "serial_number": "123ABC", 
-        "longitude": "-95.369804", 
+        "weight_unit": "Lbs", 
+        "weight": 0.0, 
         "car": {
           "make": "", 
           "VIN": "", 
           "model": "", 
           "year": ""
-        }
+        }, 
+        "latitude": "29.760427", 
+        "serial_number": "123ABC", 
+        "model": "", 
+        "temperature_unit": "Fahrenheit", 
+        "longitude": "-95.369804", 
+        "temperature": 0.0
       }
     ], 
     "password": -7207291063912423845, 
@@ -19,7 +24,24 @@
     "email": "parent123@gmail.com"
   }, 
   {
-    "car_seats": [], 
+    "car_seats": [
+      {
+        "weight_unit": "Lbs", 
+        "weight": 0.0, 
+        "car": {
+          "make": "", 
+          "VIN": "", 
+          "model": "", 
+          "year": ""
+        }, 
+        "latitude": "", 
+        "serial_number": "9890SD90SB9ML308", 
+        "model": "Chicco - Keyfit 2", 
+        "temperature_unit": "Fahrenheit", 
+        "longitude": "", 
+        "temperature": 0.0
+      }
+    ], 
     "password": 6353368565173881125, 
     "first_name": "john", 
     "last_name": "doe", 
